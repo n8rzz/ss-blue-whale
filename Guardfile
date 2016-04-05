@@ -63,26 +63,17 @@ group :red_green_refactor, halt_on_fail: true do
     watch(rails.spec_helper)     { rspec.spec_dir }
     watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
     watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
-
-    # Capybara features specs
-    watch(rails.view_dirs)     { |m| rspec.spec.("features/#{m[1]}") }
-
-    # Turnip features and steps
-    watch(%r{^spec/acceptance/(.+)\.feature$})
-    watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) do |m|
-      Dir[File.join("**/#{m[1]}.feature")][0] || "spec/acceptance"
-    end
   end
 
   # Guard: Rubocop do
-  # guard :rubocop, cli: ['-D'] do
-  #   # Rails example
-  #   watch(%r{^app/(.+)\.rb$})
-  #   watch(%r{^app/controllers/(.+)_(controller)\.rb$})
-  #   watch(%r{^spec/(.+)\.rb$})
-  #   watch(%r{^lib/(.*)\.rake$})
-  #   watch('config/routes.rb')
-  #   watch('app/controllers/application_controller.rb')
-  #   watch('spec/rails_helper.rb')
-  # end
+  guard :rubocop, cli: ['-D'] do
+    # Rails example
+    watch(%r{^app/(.+)\.rb$})
+    watch(%r{^app/controllers/(.+)_(controller)\.rb$})
+    watch(%r{^spec/(.+)\.rb$})
+    watch(%r{^lib/(.*)\.rake$})
+    watch('config/routes.rb')
+    watch('app/controllers/application_controller.rb')
+    watch('spec/rails_helper.rb')
+  end
 end
