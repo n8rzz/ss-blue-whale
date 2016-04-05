@@ -10,10 +10,24 @@ describe 'Clients', :type => :request do
       get '/clients'
 
       expect(response.status).to eq 200
+      expect(response).to match_response_schema('clients')
+    end
+  end
+
+  describe 'GET /clients/:id' do
+    it 'returns the specified client' do
+      uuid = SecureRandom.uuid
+      client_id_url = "/clients/#{uuid}"
+      FactoryGirl.create :client, id: uuid, name: 'Paint it All, Inc.'
+
+      get client_id_url
+
+      expect(response.status).to eq 200
+      expect(response).to match_response_schema('client')
 
       body = JSON.parse(response.body)
-      client_names = body.map { |client| client['name'] }
-      expect(client_names).to match_array(['John Doe', 'Jane Doe'])
+      client_name = body['name']
+      expect(client_name) == 'Paint it All, Inc.'
     end
   end
 
@@ -26,6 +40,7 @@ describe 'Clients', :type => :request do
            headers: { 'Content-Type' => 'application/json' }
 
       expect(response.status).to eq 201
+      expect(response).to match_response_schema('client')
 
       body = JSON.parse(response.body)
       client_name = body['name']
@@ -49,6 +64,7 @@ describe 'Clients', :type => :request do
           headers: { 'Content-Type' => 'application/json' }
 
       expect(response.status).to eq 200
+      expect(response).to match_response_schema('client')
 
       body = JSON.parse(response.body)
       client_name = body['name']
