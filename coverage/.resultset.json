@@ -1,6 +1,11 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/ngeslin/Documents/www/ss-blue-whale/BlueWhale/app/serializers/client_serializer.rb": [
+        1,
+        1,
+        null
+      ],
       "/Users/ngeslin/Documents/www/ss-blue-whale/BlueWhale/app/models/client.rb": [
         1,
         1,
@@ -12,6 +17,6 @@
         null
       ]
     },
-    "timestamp": 1459813518
+    "timestamp": 1459823534
   }
 }
