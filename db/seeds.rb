@@ -1,8 +1,6 @@
 require 'faker'
 require 'securerandom'
 
-Client.create(name: Faker::Name.name, email: Faker::Internet.email, website: Faker::Internet.domain_name)
-Client.create(name: Faker::Company.name, phone: Faker::PhoneNumber.phone_number)
 Client.create(
   name: Faker::Name.name,
   address_1: Faker::Address.street_address,
@@ -14,4 +12,10 @@ Client.create(
   phone: Faker::PhoneNumber.phone_number,
   email: Faker::Internet.email,
   website: Faker::Internet.domain_name
+)
+
+Project.create(
+  startDate: Faker::Date.between(180.days.ago, Date.today),
+  dueDate: Faker::Date.between(90.days.ago, 5.days.ago),
+  completedDate: Faker::Date.between(5.days.ago, Date.today)
 )
