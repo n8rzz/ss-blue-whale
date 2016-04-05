@@ -231,17 +231,17 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0.rc2)
   better_errors (~> 2.1.1)
-  byebug
+  byebug (= 8.2.2)
   coveralls
-  database_cleaner
+  database_cleaner (= 1.5.1)
   factory_girl_rails (= 4.5.0)
   faker (~> 1.5.0)
   guard-bundler (= 2.1.0)
   guard-rspec (= 4.5.0)
   guard-rubocop (= 1.2.0)
-  json-schema
+  json-schema (= 2.6.1)
   pg (~> 0.18)
-  puma
+  puma (= 3.2.0)
   rack-cors
   rails!
   rspec-rails (= 3.1.0)
