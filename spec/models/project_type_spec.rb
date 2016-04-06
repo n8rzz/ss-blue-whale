@@ -12,4 +12,6 @@ describe ProjectType, type: :model do
   it { should have_db_column(:description).of_type(:string) }
   it { should validate_length_of(:description).is_at_least(2).is_at_most(160) }
   it { should have_db_column(:dueDate).of_type(:datetime) }
+
+  it { should have_many(:projects) }
 end

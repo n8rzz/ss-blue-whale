@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406013008) do
+ActiveRecord::Schema.define(version: 20160406032609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,11 +45,14 @@ ActiveRecord::Schema.define(version: 20160406013008) do
     t.datetime "completedDate"
     t.datetime "dueDate"
     t.integer  "client_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "project_type_id"
   end
 
   add_index "projects", ["client_id"], name: "index_projects_on_client_id", using: :btree
+  add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree
 
   add_foreign_key "projects", "clients"
+  add_foreign_key "projects", "project_types"
 end
