@@ -14,13 +14,6 @@ Client.create(
   website: Faker::Internet.domain_name
 )
 
-Project.create(
-  startDate: Faker::Date.between(180.days.ago, Date.today),
-  dueDate: Faker::Date.between(90.days.ago, 5.days.ago),
-  completedDate: Faker::Date.between(5.days.ago, Date.today)
-  client_id: 1
-)
-
 ProjectType.create(
   name: Faker::Lorem.word,
   description: Faker::Lorem.sentence,

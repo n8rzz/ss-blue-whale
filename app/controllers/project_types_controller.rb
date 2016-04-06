@@ -39,13 +39,14 @@ class ProjectTypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project_type
-      @project_type = ProjectType.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def project_type_params
-      params.require(:project_type).permit(:name, :description, :dueDate, :references)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project_type
+    @project_type = ProjectType.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def project_type_params
+    params.require(:project_type).permit(:name, :description, :dueDate)
+  end
 end

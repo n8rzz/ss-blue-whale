@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe ProjectTypesController, type: :routing do
   describe "routing" do
-
     it "routes to #index" do
       expect(:get => "/project_types").to route_to("project_types#index")
     end

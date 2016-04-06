@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "id": { "type": "integer" },
+    "startDate": { "type": "datetime" },
+    "endDate": { "type": "datetime" },
+    "completedDate": { "type": "datetime" },
+    "client_id": { "type": "integer" }
+  }
+}
