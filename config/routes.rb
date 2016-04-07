@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :task_items
   resources :project_types
   resources :projects
   resources :clients

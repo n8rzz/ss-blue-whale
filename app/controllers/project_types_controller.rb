@@ -47,6 +47,6 @@ class ProjectTypesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def project_type_params
-    params.require(:project_type).permit(:name, :description, :dueDate)
+    params.require(:project_type).permit(:name, :description, :dueDate, task_item_ids: [])
   end
 end

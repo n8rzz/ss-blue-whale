@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406032609) do
+ActiveRecord::Schema.define(version: 20160407013152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20160406032609) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "project_types_task_items", id: false, force: :cascade do |t|
+    t.integer "project_type_id", null: false
+    t.integer "task_item_id",    null: false
+  end
+
+  add_index "project_types_task_items", ["project_type_id", "task_item_id"], name: "project_type_task_item", using: :btree
+  add_index "project_types_task_items", ["task_item_id", "project_type_id"], name: "task_item_project_type", using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.datetime "startDate"
     t.datetime "completedDate"
@@ -53,6 +61,20 @@ ActiveRecord::Schema.define(version: 20160406032609) do
   add_index "projects", ["client_id"], name: "index_projects_on_client_id", using: :btree
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree
 
+  create_table "task_items", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "sortOrder",       default: 0
+    t.datetime "startDate"
+    t.datetime "endDate"
+    t.integer  "project_type_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "task_items", ["project_type_id"], name: "index_task_items_on_project_type_id", using: :btree
+
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "project_types"
+  add_foreign_key "task_items", "project_types"
 end
