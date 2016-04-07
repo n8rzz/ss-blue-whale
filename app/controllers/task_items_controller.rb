@@ -39,13 +39,14 @@ class TaskItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task_item
-      @task_item = TaskItem.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def task_item_params
-      params.require(:task_item).permit(:name, :description, :sortOrder, :startDate, :endDate, :project_type_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task_item
+    @task_item = TaskItem.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def task_item_params
+    params.require(:task_item).permit(:name, :description, :sortOrder, :startDate, :endDate, :project_type_id)
+  end
 end
