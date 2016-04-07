@@ -2,11 +2,9 @@ FactoryGirl.define do
   factory :task_item do
     sequence(:name) { Faker::App.name }
     sequence(:sortOrder, &:to_s)
+    description Faker::Lorem.sentence
     startDate Faker::Date.between(180.days.ago, 10.days.ago)
     endDate Faker::Date.between(90.days.ago, 2.days.ago)
-
-    # project_type FactoryGirl.create_list(:project_type, 2)
-    # after(:create) { task_item_id.project_type = [create(:project_type)] }
   end
 
   # create(:task_item_with_project_types)
