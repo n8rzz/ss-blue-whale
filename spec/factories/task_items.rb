@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :task_item do
-    sequence(:name) { Faker::App.name }
+    sequence(:name) { |n| "#{Faker::App.name}-#{n}" }
     sequence(:sortOrder, &:to_s)
     description Faker::Lorem.sentence
     startDate Faker::Date.between(180.days.ago, 10.days.ago)
