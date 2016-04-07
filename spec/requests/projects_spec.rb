@@ -26,7 +26,8 @@ describe 'Projects', :type => :request do
   describe 'POST /projects' do
     it 'creates the specified project' do
       FactoryGirl.create(:client, id: 1)
-      project_request = attributes_for(:project, client_id: 1)
+      FactoryGirl.create(:project_type, id: 1)
+      project_request = attributes_for(:project, client_id: 1, project_type_id: 1)
 
       post '/projects',
            params: project_request.to_json,

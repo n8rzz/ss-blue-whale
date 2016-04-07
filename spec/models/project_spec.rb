@@ -10,4 +10,6 @@ describe Project, :type => :model do
   it { should have_db_column(:completedDate).of_type(:datetime) }
 
   it { should belong_to(:client) }
+  it { should belong_to(:project_type) }
+  it { should have_db_index(:project_type_id) }
 end
