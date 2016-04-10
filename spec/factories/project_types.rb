@@ -13,7 +13,7 @@ FactoryGirl.define do
     end
 
     after(:create) do |base_project_type, evaluator|
-      create_list(:task_item, evaluator.item_count, project_types: [base_project_type])
+      create_list(:task_item, evaluator.item_count, project_type: [base_project_type])
     end
   end
 end

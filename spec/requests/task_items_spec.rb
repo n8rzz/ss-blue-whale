@@ -8,13 +8,12 @@ describe 'TaskItems', :type => :request do
       get '/taskItems'
 
       expect(response.status).to eq 200
-      # expect(response).to match_response_schema('task_items')
     end
   end
 
   describe 'GET /taskItems/:id' do
     it 'returns the specified project' do
-      FactoryGirl.create :task_item, id: 1
+      FactoryGirl.create :task_item_with_project_types, id: 1
 
       get '/taskItems/1'
 
@@ -38,7 +37,7 @@ describe 'TaskItems', :type => :request do
 
   describe 'PUT /taskItems/:id' do
     it 'updates the specified task_item' do
-      FactoryGirl.create :task_item, id: 1
+      FactoryGirl.create :task_item_with_project_types, id: 1
 
       project_request = {
         name: 'Some Other Name'
