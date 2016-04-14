@@ -4,7 +4,7 @@ gem 'rails', github: "rails/rails"
 gem 'pg', '~> 0.18'
 gem 'puma', '3.2.0'
 gem 'faker', '~> 1.5.0'
-gem 'active_model_serializers', '~> 0.10.0.rc2'
+gem 'active_model_serializers', '~> 0.10.0.rc5'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'coveralls', require: false
 

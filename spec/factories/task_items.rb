@@ -11,7 +11,7 @@ FactoryGirl.define do
   # create(:task_item_with_project_types, project_type_count: 10)
   factory :task_item_with_project_types, parent: :task_item do
     transient do
-      project_type_count 5
+      project_type_count 2
     end
 
     after(:create) do |base_task_item, evaluator|

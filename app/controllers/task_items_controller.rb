@@ -42,11 +42,15 @@ class TaskItemsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_task_item
-    @task_item = TaskItem.find(params[:id])
+    @task_item = TaskItem.includes(:project_types).find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def task_item_params
-    params.require(:task_item).permit(:name, :description, :sortOrder, :startDate, :endDate, project_type_ids: [])
+    params.require(:task_item).permit(:name, :description, :sortOrder, :startDate, :endDate, { project_type_ids: [] })
+  end
+
+  def deserialized_task_item_params
+    ActiveModelSerializers::Deserialization.jsonapi_parse!(params)
   end
 end
