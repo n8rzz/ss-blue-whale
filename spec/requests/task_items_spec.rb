@@ -53,7 +53,7 @@ describe 'TaskItems', :type => :request do
           headers: { 'Content-Type' => 'application/json' }
 
       expect(response.status).to eq 200
-      body = JSON.parse(response.body)
+      # body = JSON.parse(response.body)
       # puts body
       # expect(body['project_type'].size).to eq 2
       # expect(response).to match_response_schema('task_item')

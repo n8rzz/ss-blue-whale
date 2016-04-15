@@ -25,5 +25,9 @@ RSpec.describe ProjectTypesController, type: :routing do
     it "routes to #destroy" do
       expect(:delete => "/projectTypes/1").to route_to("project_types#destroy", :id => "1")
     end
+
+    it "routes to #add_task_items" do
+      expect(:post => "/projectTypes/1/taskItems").to route_to("project_types#add_task_items", :id => "1")
+    end
   end
 end

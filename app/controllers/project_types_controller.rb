@@ -1,19 +1,19 @@
 class ProjectTypesController < ApplicationController
-  before_action :set_project_type, only: [:show, :update, :destroy]
+  before_action :set_project_type, only: [:show, :update, :destroy, :add_task_items]
 
-  # GET /project_types
+  # GET /projectTypes
   def index
     @project_types = ProjectType.all
 
     render json: @project_types
   end
 
-  # GET /project_types/1
+  # GET /projectTypes/1
   def show
     render json: @project_type
   end
 
-  # POST /project_types
+  # POST /projectTypes
   def create
     @project_type = ProjectType.new(project_type_params)
 
@@ -24,7 +24,7 @@ class ProjectTypesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /project_types/1
+  # PATCH/PUT /projectTypes/1
   def update
     if @project_type.update(project_type_params)
       render json: @project_type
@@ -33,9 +33,18 @@ class ProjectTypesController < ApplicationController
     end
   end
 
-  # DELETE /project_types/1
+  # DELETE /projectTypes/1
   def destroy
     @project_type.destroy
+  end
+
+  # POST /projectTypes/:id/taskItems
+  def add_task_items
+    if @project_type.task_item_ids = project_type_task_item_params
+      render json: @project_type
+    else
+      render json: @project_type.errors
+    end
   end
 
   private
@@ -48,5 +57,9 @@ class ProjectTypesController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def project_type_params
     params.require(:project_type).permit(:name, :description, :dueDate, task_item_ids: [])
+  end
+
+  def project_type_task_item_params
+    params[:task_item_ids]
   end
 end
