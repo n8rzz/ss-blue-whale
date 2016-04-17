@@ -40,7 +40,7 @@ class ProjectTypesController < ApplicationController
 
   # POST /projectTypes/:id/taskItems
   def add_task_items
-    if @project_type.task_item_ids = project_type_task_item_params
+    if @project_type.task_item_ids = project_type_task_items_params
       render json: @project_type
     else
       render json: @project_type.errors
@@ -51,7 +51,7 @@ class ProjectTypesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_project_type
-    @project_type = ProjectType.find(params[:id])
+    @project_type = ProjectType.includes(:task_items).find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
@@ -59,7 +59,7 @@ class ProjectTypesController < ApplicationController
     params.require(:project_type).permit(:name, :description, :dueDate, task_item_ids: [])
   end
 
-  def project_type_task_item_params
+  def project_type_task_items_params
     params[:task_item_ids]
   end
 end

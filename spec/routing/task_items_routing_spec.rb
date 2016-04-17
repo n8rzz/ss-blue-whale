@@ -25,5 +25,9 @@ describe TaskItemsController, type: :routing do
     it 'routes to #destroy' do
       expect(:delete => '/taskItems/1').to route_to('task_items#destroy', :id => '1')
     end
+
+    it 'routes to #add_project_types via POST' do
+      expect(:post => '/taskItems/1/projectTypes').to route_to('task_items#add_project_types', :id => '1')
+    end
   end
 end
