@@ -53,7 +53,7 @@ describe 'TaskItems', :type => :request do
           headers: { 'Content-Type' => 'application/json' }
 
       expect(response.status).to eq 200
-      body = JSON.parse(response.body)
+      # body = JSON.parse(response.body)
       # puts body
       # expect(body['project_type'].size).to eq 2
       # expect(response).to match_response_schema('task_item')
@@ -68,5 +68,36 @@ describe 'TaskItems', :type => :request do
 
       expect(response.status).to eq 204
     end
+  end
+
+  describe 'POST /taskItems/:id/projectTypes' do
+    it 'adds project_types to the specified task_item' do
+      FactoryGirl.create :project_type, id: 1
+      FactoryGirl.create :project_type, id: 2
+      FactoryGirl.create :task_item, id: 1
+
+      task_item_request = {
+        project_type_ids: [1, 2]
+      }
+
+      post '/taskItems/1/projectTypes',
+           params: task_item_request.to_json,
+           headers: { 'Content-Type' => 'application/json' }
+
+      expect(response.status).to eq 200
+      body = JSON.parse(response.body)
+      expect(body['project_types'].size).to eq 2
+    end
+
+    # it 'clears all task items if an empty request is made' do
+    #   FactoryGirl.create :project_type, id: 1
+    #
+    #   post '/projectTypes/1/taskItems',
+    #        headers: { 'Content-Type' => 'application/json' }
+    #
+    #   expect(response.status).to eq 200
+    #   body = JSON.parse(response.body)
+    #   expect(body['task_items']).to eq nil
+    # end
   end
 end
