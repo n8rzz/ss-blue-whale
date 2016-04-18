@@ -1,12 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails', github: "rails/rails"
+gem 'rails', github: 'rails/rails'
 gem 'pg', '~> 0.18'
 gem 'puma', '3.2.0'
 gem 'faker', '~> 1.5.0'
-gem 'active_model_serializers', '~> 0.10.0.rc2'
+gem 'active_model_serializers', '~> 0.10.0.rc5'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'coveralls', require: false
+
+group :development do
+  gem 'better_errors', '2.1.1'
+end
 
 group :development, :test do
   # gem 'rspec-rails', '3.1.0' # :branch => 'rails-5-support'
@@ -15,7 +19,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5.0.beta1'
   gem 'guard-rspec', '~> 4.6', require: false
   gem 'byebug', '8.2.2'
-  gem 'better_errors', '~>2.1.1'
   gem 'database_cleaner', '1.5.1'
   gem 'rubocop', require: false
   gem 'guard-bundler', '2.1.0'

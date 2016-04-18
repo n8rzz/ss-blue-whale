@@ -17,6 +17,7 @@ describe TaskItem, type: :model do
   it { should have_db_column(:startDate).of_type(:datetime) }
   it { should have_db_column(:endDate).of_type(:datetime) }
 
-  it { should have_and_belong_to_many(:project_type) }
+  it { should have_and_belong_to_many(:project_types) }
   it { should have_db_index(:project_type_id) }
+  it { should accept_nested_attributes_for(:project_types) }
 end

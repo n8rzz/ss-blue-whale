@@ -8,14 +8,14 @@ FactoryGirl.define do
   end
 
   # create(:task_item_with_project_types)
-  # create(:task_item_with_project_types, item_count: 10)
+  # create(:task_item_with_project_types, project_type_count: 10)
   factory :task_item_with_project_types, parent: :task_item do
     transient do
-      project_type_count 5
+      project_type_count 2
     end
 
     after(:create) do |base_task_item, evaluator|
-      create_list(:project_type, evaluator.item_count, task_items: [base_task_item])
+      create_list(:project_type, evaluator.project_type_count, task_items: [base_task_item])
     end
   end
 end

@@ -1,5 +1,5 @@
 class TaskItemsController < ApplicationController
-  before_action :set_task_item, only: [:show, :update, :destroy]
+  before_action :set_task_item, only: [:show, :update, :destroy, :add_project_types]
 
   # GET /task_items
   def index
@@ -38,15 +38,27 @@ class TaskItemsController < ApplicationController
     @task_item.destroy
   end
 
+  def add_project_types
+    if @task_item.project_type_ids = task_item_project_types_params
+      render json: @task_item
+    else
+      render json: @task_item.errors
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_task_item
-    @task_item = TaskItem.find(params[:id])
+    @task_item = TaskItem.includes(:project_types).find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def task_item_params
     params.require(:task_item).permit(:name, :description, :sortOrder, :startDate, :endDate, project_type_ids: [])
+  end
+
+  def task_item_project_types_params
+    params[:project_type_ids]
   end
 end
