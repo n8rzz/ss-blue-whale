@@ -15,6 +15,6 @@ describe ProjectType, type: :model do
   it { should have_db_column(:dueDate).of_type(:datetime) }
 
   it { should have_many(:projects) }
-  it { should have_and_belong_to_many(:task_items) }
+  it { should have_many(:task_items).through(:project_types_task_items) }
   it { should accept_nested_attributes_for(:task_items) }
 end
