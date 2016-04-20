@@ -3,9 +3,11 @@ source 'https://rubygems.org'
 gem 'rails', github: 'rails/rails'
 gem 'pg', '~> 0.18'
 gem 'puma', '3.2.0'
-gem 'faker', '~> 1.5.0'
+gem 'devise', :github => 'plataformatec/devise', :branch => 'master'
 gem 'active_model_serializers', '~> 0.10.0.rc5'
 gem 'rack-cors', :require => 'rack/cors'
+
+gem 'faker', '~> 1.5.0'
 gem 'coveralls', require: false
 
 group :development do
