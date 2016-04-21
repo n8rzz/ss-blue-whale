@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include AbstractController::Translation
 
-  # before_action :authenticate_user_from_token!
+  before_action :authenticate_user_from_token!
 
   after_action :cors_set_access_control_headers
 
@@ -19,10 +19,10 @@ class ApplicationController < ActionController::API
   end
 
   def authenticate_user_from_token!
-    auth_token = request.headers['Authourization']
+    auth_token = request.headers['Authorization']
 
     if auth_token
-      authenticate_with_token
+      authenticate_with_token auth_token
     else
       authentication_error
     end
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::API
 
   private
 
-  def authenticate_with_token
+  def authenticate_with_token auth_token
     unless auth_token.include?(':')
       authentication_error
       return
