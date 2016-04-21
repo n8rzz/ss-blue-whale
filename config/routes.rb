@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, only: []
+  resource :login, only: [:create], controller: :sessions
+
   resources :projects
   resources :clients
   resources :task_items, :path => 'taskItems' do
