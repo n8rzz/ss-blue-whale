@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :projects
   resources :clients
   resources :task_items, :path => 'taskItems' do
