@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe 'ProjectTypes', :type => :request do
+  let(:user) { create(:user) }
+
   describe 'GET /projectTypes' do
     it 'returns all project_types' do
       FactoryGirl.create_list(:project_type, 3)
@@ -8,7 +10,6 @@ describe 'ProjectTypes', :type => :request do
       get '/projectTypes'
 
       expect(response.status).to eq 200
-      # expect(response).to match_response_schema('project_types')
     end
   end
 
@@ -19,7 +20,6 @@ describe 'ProjectTypes', :type => :request do
       get '/projectTypes/1'
 
       expect(response.status).to eq 200
-      # expect(response).to match_response_schema('project_type')
     end
   end
 
@@ -29,10 +29,12 @@ describe 'ProjectTypes', :type => :request do
 
       post '/projectTypes',
            params: project_type_request.to_json,
-           headers: { 'Content-Type' => 'application/json' }
+           headers: {
+             'Content-Type' => 'application/json',
+             'Authorization' => user.access_token
+           }
 
       expect(response.status).to eq 201
-      # expect(response).to match_response_schema('project_type')
     end
   end
 
@@ -46,10 +48,12 @@ describe 'ProjectTypes', :type => :request do
 
       put '/projectTypes/1',
           params: project_request.to_json,
-          headers: { 'Content-Type' => 'application/json' }
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => user.access_token
+          }
 
       expect(response.status).to eq 200
-      # expect(response).to match_response_schema('project_type')
     end
   end
 
@@ -57,7 +61,11 @@ describe 'ProjectTypes', :type => :request do
     it 'deletes the specified project_type' do
       FactoryGirl.create :project_type, id: 1
 
-      delete '/projectTypes/1'
+      delete '/projectTypes/1',
+             headers: {
+               'Content-Type' => 'application/json',
+               'Authorization' => user.access_token
+             }
 
       expect(response.status).to eq 204
     end
@@ -75,7 +83,10 @@ describe 'ProjectTypes', :type => :request do
 
       post '/projectTypes/1/taskItems',
            params: project_type_request.to_json,
-           headers: { 'Content-Type' => 'application/json' }
+           headers: {
+             'Content-Type' => 'application/json',
+             'Authorization' => user.access_token
+           }
 
       expect(response.status).to eq 200
       body = JSON.parse(response.body)
@@ -86,7 +97,10 @@ describe 'ProjectTypes', :type => :request do
       FactoryGirl.create :project_type, id: 1
 
       post '/projectTypes/1/taskItems',
-           headers: { 'Content-Type' => 'application/json' }
+           headers: {
+             'Content-Type' => 'application/json',
+             'Authorization' => user.access_token
+           }
 
       expect(response.status).to eq 200
       body = JSON.parse(response.body)

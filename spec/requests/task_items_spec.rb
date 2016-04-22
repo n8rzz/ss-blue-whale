@@ -1,11 +1,17 @@
 require 'rails_helper'
 
 describe 'TaskItems', :type => :request do
+  let(:user) { create(:user) }
+
   describe 'GET /taskItems' do
     it 'returns all task_items' do
       FactoryGirl.create_list(:task_item, 3)
 
-      get '/taskItems'
+      get '/taskItems',
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => user.access_token
+          }
 
       expect(response.status).to eq 200
       body = JSON.parse(response.body)
@@ -20,7 +26,6 @@ describe 'TaskItems', :type => :request do
       get '/taskItems/1'
 
       expect(response.status).to eq 200
-      # expect(response).to match_response_schema('task_item')
     end
   end
 
@@ -30,10 +35,12 @@ describe 'TaskItems', :type => :request do
 
       post '/taskItems',
            params: task_item_request.to_json,
-           headers: { 'Content-Type' => 'application/json' }
+           headers: {
+             'Content-Type' => 'application/json',
+             'Authorization' => user.access_token
+           }
 
       expect(response.status).to eq 201
-      # expect(response).to match_response_schema('task_item')
     end
   end
 
@@ -50,13 +57,12 @@ describe 'TaskItems', :type => :request do
 
       put '/taskItems/1',
           params: project_request.to_json,
-          headers: { 'Content-Type' => 'application/json' }
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => user.access_token
+          }
 
       expect(response.status).to eq 200
-      # body = JSON.parse(response.body)
-      # puts body
-      # expect(body['project_type'].size).to eq 2
-      # expect(response).to match_response_schema('task_item')
     end
   end
 
@@ -64,7 +70,11 @@ describe 'TaskItems', :type => :request do
     it 'deletes the specified project' do
       FactoryGirl.create :task_item, id: 1
 
-      delete '/taskItems/1'
+      delete '/taskItems/1',
+             headers: {
+               'Content-Type' => 'application/json',
+               'Authorization' => user.access_token
+             }
 
       expect(response.status).to eq 204
     end
@@ -82,7 +92,10 @@ describe 'TaskItems', :type => :request do
 
       post '/taskItems/1/projectTypes',
            params: task_item_request.to_json,
-           headers: { 'Content-Type' => 'application/json' }
+           headers: {
+             'Content-Type' => 'application/json',
+             'Authorization' => user.access_token
+           }
 
       expect(response.status).to eq 200
       body = JSON.parse(response.body)

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe 'Projects', :type => :request do
+  let(:user) { create(:user) }
+
   describe 'GET /projects' do
     it 'returns all projects' do
       FactoryGirl.create_list(:project, 3)
@@ -8,7 +10,6 @@ describe 'Projects', :type => :request do
       get '/projects'
 
       expect(response.status).to eq 200
-      # expect(response).to match_response_schema('projects')
     end
   end
 
@@ -19,7 +20,6 @@ describe 'Projects', :type => :request do
       get '/projects/1'
 
       expect(response.status).to eq 200
-      # expect(response).to match_response_schema('project')
     end
   end
 
@@ -31,10 +31,12 @@ describe 'Projects', :type => :request do
 
       post '/projects',
            params: project_request.to_json,
-           headers: { 'Content-Type' => 'application/json' }
+           headers: {
+             'Content-Type' => 'application/json',
+             'Authorization' => user.access_token
+           }
 
       expect(response.status).to eq 201
-      # expect(response).to match_response_schema('project')
     end
   end
 
@@ -49,10 +51,12 @@ describe 'Projects', :type => :request do
 
       put '/projects/1',
           params: project_request.to_json,
-          headers: { 'Content-Type' => 'application/json' }
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => user.access_token
+          }
 
       expect(response.status).to eq 200
-      # expect(response).to match_response_schema('project')
     end
   end
 
@@ -60,7 +64,11 @@ describe 'Projects', :type => :request do
     it 'deletes the specified project' do
       FactoryGirl.create :project, id: 1
 
-      delete '/projects/1'
+      delete '/projects/1',
+             headers: {
+               'Content-Type' => 'application/json',
+               'Authorization' => user.access_token
+             }
 
       expect(response.status).to eq 204
     end

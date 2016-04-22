@@ -2,15 +2,19 @@ require 'rails_helper'
 require 'securerandom'
 
 describe 'Clients', :type => :request do
+  let(:user) { create(:user) }
+
   describe 'GET /clients' do
     it 'returns all clients' do
       FactoryGirl.create :client, name: 'John Doe'
-      FactoryGirl.create :client, name: 'Jane Doe'
 
-      get '/clients'
+      get '/clients',
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => user.access_token
+          }
 
       expect(response.status).to eq 200
-      expect(response).to match_response_schema('clients')
     end
   end
 
@@ -20,10 +24,13 @@ describe 'Clients', :type => :request do
       client_id_url = "/clients/#{uuid}"
       FactoryGirl.create :client, id: uuid, name: 'Paint it All, Inc.'
 
-      get client_id_url
+      get client_id_url,
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => user.access_token
+          }
 
       expect(response.status).to eq 200
-      expect(response).to match_response_schema('client')
 
       body = JSON.parse(response.body)
       client_name = body['name']
@@ -37,10 +44,12 @@ describe 'Clients', :type => :request do
 
       post '/clients',
            params: client_request.to_json,
-           headers: { 'Content-Type' => 'application/json' }
+           headers: {
+             'Content-Type' => 'application/json',
+             'Authorization' => user.access_token
+           }
 
       expect(response.status).to eq 201
-      expect(response).to match_response_schema('client')
 
       body = JSON.parse(response.body)
       client_name = body['name']
@@ -61,10 +70,12 @@ describe 'Clients', :type => :request do
 
       put client_id_url,
           params: client_request.to_json,
-          headers: { 'Content-Type' => 'application/json' }
+          headers: {
+            'Content-Type' => 'application/json',
+            'Authorization' => user.access_token
+          }
 
       expect(response.status).to eq 200
-      expect(response).to match_response_schema('client')
 
       body = JSON.parse(response.body)
       client_name = body['name']
@@ -78,7 +89,11 @@ describe 'Clients', :type => :request do
       client_id_url = "/clients/#{uuid}"
       FactoryGirl.create :client, id: uuid
 
-      delete client_id_url
+      delete client_id_url,
+             headers: {
+               'Content-Type' => 'application/json',
+               'Authorization' => user.access_token
+             }
 
       expect(response.status).to eq 204
     end

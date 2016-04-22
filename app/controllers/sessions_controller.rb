@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
     return invalid_login_attempt unless @user
 
     if @user.valid_password?(params[:password])
+      puts SecureRandom.hex
       sign_in :user, @user
       render json: @user
     else

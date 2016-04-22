@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
     auth_token = request.headers['Authorization']
 
     if auth_token
-      authenticate_with_token auth_token
+      authenticate_with_token(auth_token)
     else
       authentication_error
     end
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::API
 
   private
 
-  def authenticate_with_token auth_token
+  def authenticate_with_token(auth_token)
     unless auth_token.include?(':')
       authentication_error
       return
