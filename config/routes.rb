@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :projects
   resources :clients
+  resources :time_entries, :path => 'timeEntries'
   resources :task_items, :path => 'taskItems' do
     member do
       post 'projectTypes', to: 'task_items#add_project_types'
