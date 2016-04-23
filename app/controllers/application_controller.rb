@@ -21,7 +21,7 @@ class ApplicationController < ActionController::API
   def authenticate_user_from_token!
     auth_token = request.headers['Authorization']
 
-    if auth_token
+    if auth_token && auth_token.include?(':')
       authenticate_with_token(auth_token)
     else
       authentication_error
@@ -31,11 +31,6 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_with_token(auth_token)
-    unless auth_token.include?(':')
-      authentication_error
-      return
-    end
-
     user_id = auth_token.split(':').first
     user = User.where(id: user_id).first
 
@@ -46,7 +41,7 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def authentication_error
-    render json: { error: 'unauthorized', status: 401 }
+  def authentication_error(message = 'unauthorized')
+    render json: { error: message, status: 401 }
   end
 end

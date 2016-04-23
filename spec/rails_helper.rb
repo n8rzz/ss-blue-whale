@@ -51,8 +51,6 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.include Requests::JsonHelpers, :type => :request
-
   config.include FactoryGirl::Syntax::Methods
 
   config.include RSpec::Rails::RequestExampleGroup, type: :request
@@ -69,4 +67,6 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.include Requests::JsonHelpers, :type => :request
 end

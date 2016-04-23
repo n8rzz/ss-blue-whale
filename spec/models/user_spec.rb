@@ -27,6 +27,12 @@ describe User, :type => :model do
     it { should validate_length_of(:password).is_at_least(8) }
   end
 
+  describe 'callbacks' do
+    let(:user) { create(:user) }
+
+    it { expect(user).to callback(:update_access_token!).after(:create) }
+  end
+
   # describe 'instance methods' do
   #   before { create(:user, first_name: 'Tom', last_name: 'Tomkins') }
   #

@@ -24,14 +24,13 @@ group :development, :test do
   gem 'database_cleaner', '1.5.1'
   gem 'rubocop', require: false
   gem 'guard-bundler', '2.1.0'
-  # gem 'guard-rspec', '4.5.0', require: false
   gem 'guard-rubocop', '1.2.0', require: false
 end
 
 group :test do
   gem 'factory_girl_rails', '4.5.0'
   gem 'shoulda-matchers', '2.8.0'
-  gem 'json-schema', '2.6.1'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
