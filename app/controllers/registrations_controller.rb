@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   skip_before_action :authenticate_user_from_token!, only: [:create]
-  before_filter :not_allowed, only: [:new, :edit, :cancel]
+  before_action :not_allowed, only: [:new, :edit, :cancel]
 
   respond_to :json
 

@@ -6,7 +6,6 @@ class SessionsController < ApplicationController
     return invalid_login_attempt unless @user
 
     if @user.valid_password?(params[:password])
-      puts SecureRandom.hex
       sign_in :user, @user
       render json: @user
     else
@@ -18,6 +17,6 @@ class SessionsController < ApplicationController
 
   def invalid_login_attempt
     warden.custom_failure!
-    render json: { error: 'sessions_controller.invalid_login_attempt' }, status: :unprocessable_entity
+    render json: { status: 401, error: 'sessions_controller.invalid_login_attempt' }, status: 401
   end
 end

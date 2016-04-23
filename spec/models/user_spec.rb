@@ -3,6 +3,7 @@ require 'rails_helper'
 describe User, :type => :model do
   it 'has a valid factory' do
     expect(build(:user)).to be_instance_of(User)
+    expect(build(:session_request)).to be_instance_of(User)
   end
 
   describe 'data and associations' do
