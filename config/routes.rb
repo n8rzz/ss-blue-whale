@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => { :registrations => 'registrations' }
+  resource :login, only: [:create], controller: :sessions
+
   resources :projects
   resources :clients
   resources :task_items, :path => 'taskItems' do
