@@ -13,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
     if resource.save
       render json: resource, status: 200
     else
-      render json: resource.errors, status: :unprocessable_entity
+      render json: resource.errors, status: 400
     end
   end
 
