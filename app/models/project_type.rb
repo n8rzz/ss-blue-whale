@@ -1,6 +1,5 @@
 class ProjectType < ApplicationRecord
   has_many :projects
-  # has_and_belongs_to_many :task_items
   has_many :project_types_task_items
   has_many :task_items, :through => :project_types_task_items
 
