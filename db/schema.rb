@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420233752) do
+ActiveRecord::Schema.define(version: 20160423222621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,17 @@ ActiveRecord::Schema.define(version: 20160420233752) do
 
   add_index "task_items", ["project_type_id"], name: "index_task_items_on_project_type_id", using: :btree
 
+  create_table "time_entries", force: :cascade do |t|
+    t.datetime "startTime",  null: false
+    t.datetime "endTime"
+    t.integer  "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "time_entries", ["user_id"], name: "index_time_entries_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -97,4 +108,5 @@ ActiveRecord::Schema.define(version: 20160420233752) do
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "project_types"
   add_foreign_key "task_items", "project_types"
+  add_foreign_key "time_entries", "users"
 end
