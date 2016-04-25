@@ -9,7 +9,7 @@ describe 'TimeEntries', :type => :request do
     end
 
     context 'with authorization' do
-      it 'returns all time_entrys' do
+      it 'returns all time_entries' do
         get '/timeEntries',
             headers: {
               'Content-Type' => 'application/json',
@@ -37,7 +37,7 @@ describe 'TimeEntries', :type => :request do
       end
     end
   end
-  #
+
   describe 'GET /timeEntries/:id' do
     before :each do
       @time_entry = FactoryGirl.create :time_entry, id: 1

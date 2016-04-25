@@ -7,6 +7,7 @@ gem 'devise', :github => 'plataformatec/devise', :branch => 'master'
 gem 'active_model_serializers', '~> 0.10.0.rc5'
 gem 'rack-cors', :require => 'rack/cors'
 
+gem 'time_difference', '~> 0.4.2'
 gem 'faker', '~> 1.5.0'
 gem 'coveralls', require: false
 

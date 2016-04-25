@@ -15,7 +15,7 @@ class TimeEntriesController < ApplicationController
 
   # POST /time_entries
   def create
-    @time_entry = TimeEntry.new(time_entry_params)
+    @time_entry = current_user.time_entries.build(time_entry_params)
 
     if @time_entry.save
       render json: @time_entry, status: :created, location: @time_entry

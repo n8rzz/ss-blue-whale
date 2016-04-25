@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :time_entries
+
   after_create :update_access_token!
 
   validates :username, presence: true, uniqueness: true, length: { minimum: 2 }
