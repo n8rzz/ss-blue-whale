@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { :registrations => 'registrations' }
+  devise_for :users, skip: :all
+  resources :users, only: [:index, :create, :update], controller: :registrations
   resource :login, only: [:create], controller: :sessions
 
   resources :projects
