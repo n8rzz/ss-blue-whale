@@ -8,7 +8,8 @@ class RegistrationsController < ApplicationController
   # before_action :configure_account_update_params, only: [:update]
 
   def index
-    render json: User.all
+    @users = User.all
+    render json: @users, each_serializer: UserPreviewSerializer
   end
 
   # POST /users
