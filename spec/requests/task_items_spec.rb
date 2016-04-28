@@ -25,9 +25,7 @@ describe 'TaskItems', :type => :request do
             headers: { 'Content-Type' => 'application/json' }
       end
 
-      it 'request succeeds' do
-        expect(response.status).to eq 200
-      end
+      it { expect(response.status).to eq 200 }
 
       it 'response contains error metadata' do
         expect(json['error']).to eq 'unauthorized'

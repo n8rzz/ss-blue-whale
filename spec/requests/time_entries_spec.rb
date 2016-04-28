@@ -5,7 +5,7 @@ describe 'TimeEntries', :type => :request do
 
   describe 'GET /timeEntries' do
     before :each do
-      FactoryGirl.create_list(:time_entry, 3)
+      create_list(:time_entry, 3)
     end
 
     context 'with authorization' do
@@ -75,7 +75,8 @@ describe 'TimeEntries', :type => :request do
 
   describe 'POST /timeEntries' do
     before :each do
-      @time_entry_request = attributes_for(:time_entry)
+      @task_item = create(:task_item)
+      @time_entry_request = attributes_for(:time_entry, task_item_id: @task_item.id, user_id: user.id)
     end
 
     context 'with authorization' do

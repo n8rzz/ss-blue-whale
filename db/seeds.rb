@@ -19,3 +19,10 @@ ProjectType.create(
   description: Faker::Lorem.sentence,
   dueDate: Faker::Date.between(90.days.ago, 5.days.ago)
 )
+
+User.create(
+  email: 'johndoe@example.com',
+  username: 'johndoe',
+  password: 'password',
+  password_confirmation: 'password'
+)

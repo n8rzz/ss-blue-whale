@@ -47,6 +47,6 @@ class TimeEntriesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def time_entry_params
-    params.permit(:startTime, :endTime, :duration)
+    params.permit(:startTime, :endTime, :duration, :task_item_id)
   end
 end
