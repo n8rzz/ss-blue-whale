@@ -1,29 +1,29 @@
 require 'rails_helper'
-require 'securerandom'
 
-describe 'Clients', :type => :request do
+describe 'TimeEntries', :type => :request do
   let(:user) { create(:user) }
 
-  describe 'GET /clients' do
+  describe 'GET /timeEntries' do
     before :each do
-      FactoryGirl.create :client, name: 'John Doe'
+      create_list(:time_entry, 3)
     end
 
     context 'with authorization' do
-      it 'returns all clients' do
-        get '/clients',
+      it 'returns all time_entries' do
+        get '/timeEntries',
             headers: {
               'Content-Type' => 'application/json',
               'Authorization' => user.access_token
             }
 
         expect(response.status).to eq 200
+        expect(json.size).to eq 3
       end
     end
 
     context 'without authorization' do
       before :each do
-        get '/clients',
+        get '/timeEntries',
             headers: { 'Content-Type' => 'application/json' }
       end
 
@@ -38,29 +38,27 @@ describe 'Clients', :type => :request do
     end
   end
 
-  describe 'GET /clients/:id' do
+  describe 'GET /timeEntries/:id' do
     before :each do
-      uuid = SecureRandom.uuid
-      @client_id_url = "/clients/#{uuid}"
-      FactoryGirl.create :client, id: uuid, name: 'Paint it All, Inc.'
+      @time_entry = FactoryGirl.create :time_entry, id: 1
     end
 
     context 'with authorization' do
-      it 'returns the specified client' do
-        get @client_id_url,
+      it 'returns the specified time_entry' do
+        get '/timeEntries/1',
             headers: {
               'Content-Type' => 'application/json',
               'Authorization' => user.access_token
             }
 
         expect(response.status).to eq 200
-        expect(json['name']) == 'Paint it All, Inc.'
+        expect(json['startTime']) == @time_entry['startTime']
       end
     end
 
     context 'without authorization' do
       before :each do
-        get @client_id_url,
+        get '/timeEntries/1',
             headers: { 'Content-Type' => 'application/json' }
       end
 
@@ -75,29 +73,30 @@ describe 'Clients', :type => :request do
     end
   end
 
-  describe 'POST /clients' do
+  describe 'POST /timeEntries' do
     before :each do
-      @client_request = attributes_for(:client)
+      @task_item = create(:task_item)
+      @time_entry_request = attributes_for(:time_entry, task_item_id: @task_item.id, user_id: user.id)
     end
 
     context 'with authorization' do
-      it 'creates the specified client' do
-        post '/clients',
-             params: @client_request.to_json,
+      it 'creates the specified time_entry' do
+        post '/timeEntries',
+             params: @time_entry_request.to_json,
              headers: {
                'Content-Type' => 'application/json',
                'Authorization' => user.access_token
              }
 
         expect(response.status).to eq 201
-        expect(json['name']) == @client_request['name']
+        expect(json['startTime']) == @time_entry_request['startTime']
       end
     end
 
     context 'without authorization' do
       before :each do
-        post '/clients',
-             params: @client_request.to_json,
+        post '/timeEntries',
+             params: @time_entry_request.to_json,
              headers: { 'Content-Type' => 'application/json' }
       end
 
@@ -112,36 +111,33 @@ describe 'Clients', :type => :request do
     end
   end
 
-  describe 'PUT /clients/:id' do
+  describe 'PUT /timeEntries/:id' do
     before :each do
-      uuid = SecureRandom.uuid
-      @client_id_url = "/clients/#{uuid}"
-      FactoryGirl.create :client, id: uuid, name: 'Paint it All, Inc.'
+      FactoryGirl.create :time_entry, id: 1, endTime: nil
 
-      @client_request = {
-        id: uuid.to_s,
-        name: 'Ship it'
+      @time_entry_request = {
+        endTime: Time.now
       }
     end
 
     context 'with authorization' do
-      it 'updates the specified client' do
-        put @client_id_url,
-            params: @client_request.to_json,
+      it 'updates the specified time_entry' do
+        put '/timeEntries/1',
+            params: @time_entry_request.to_json,
             headers: {
               'Content-Type' => 'application/json',
               'Authorization' => user.access_token
             }
 
         expect(response.status).to eq 200
-        expect(json['name']) == @client_request['name']
+        expect(json['endTime']) == @time_entry_request['endTime']
       end
     end
 
     context 'without authorization' do
       before :each do
-        put @client_id_url,
-            params: @client_request.to_json,
+        put '/timeEntries/1',
+            params: @time_entry_request.to_json,
             headers: { 'Content-Type' => 'application/json' }
       end
 
@@ -156,16 +152,14 @@ describe 'Clients', :type => :request do
     end
   end
 
-  describe 'DELETE /clients/:id' do
+  describe 'DELETE /timeEntries/:id' do
     before :each do
-      uuid = SecureRandom.uuid
-      @client_id_url = "/clients/#{uuid}"
-      FactoryGirl.create :client, id: uuid
+      FactoryGirl.create :time_entry, id: 1
     end
 
     context 'with authorization' do
-      it 'deletes the specified client' do
-        delete @client_id_url,
+      it 'deletes the specified time_entry' do
+        delete '/timeEntries/1',
                headers: {
                  'Content-Type' => 'application/json',
                  'Authorization' => user.access_token
@@ -177,7 +171,7 @@ describe 'Clients', :type => :request do
 
     context 'without authorization' do
       before :each do
-        delete @client_id_url,
+        delete '/timeEntries/1',
                headers: { 'Content-Type' => 'application/json' }
       end
 

@@ -1,5 +1,7 @@
 class TaskItem < ApplicationRecord
-  has_and_belongs_to_many :project_types
+  has_many :project_types_task_items
+  has_many :project_types, :through => :project_types_task_items
+  has_many :time_entries
 
   accepts_nested_attributes_for :project_types
 

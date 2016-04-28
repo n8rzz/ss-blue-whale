@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users, skip: :all
+  resources :users, only: [:index, :create, :update], controller: :registrations
+  resource :login, only: [:create], controller: :sessions
+
   resources :projects
   resources :clients
+  resources :time_entries, :path => 'timeEntries'
   resources :task_items, :path => 'taskItems' do
     member do
       post 'projectTypes', to: 'task_items#add_project_types'
