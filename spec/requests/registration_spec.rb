@@ -1,42 +1,96 @@
 require 'rails_helper'
 
 describe 'Registrations', :type => :request do
+  let(:user) { create(:user) }
+
   describe 'GET /users' do
-    context 'with valid information' do
+    context 'with authorization' do
+      before :each do
+        create_list(:user, 2)
+
+        get '/users',
+            headers: {
+              'Content-Type' => 'application/json',
+              'Authorization' => user.access_token
+            }
+      end
+
+      it { expect(response.status).to eq 200 }
+      it { expect(json.size).to eq 3 }
+    end
+
+    context 'without authorization' do
+      before :each do
+        get '/users'
+      end
+
+      it { expect(response.status).to eq 200 }
+      it { expect(json['status']).to eq 401 }
+      it { expect(json).to have_key('error') }
+      it { expect(json['error']).to eq 'unauthorized' }
+    end
+  end
+
+  describe 'POST /users' do
+    context 'with authorization' do
       before :each do
         @user = attributes_for(:user)
 
         post '/users',
              params: @user.to_json,
-             headers: { 'Content-Type' => 'application/json' }
+             headers: {
+               'Content-Type' => 'application/json',
+               'Authorization' => user.access_token
+             }
       end
 
-      it 'has the correct status code' do
-        expect(response.status).to eq 200
-      end
-
-      it 'creates a new user' do
-        expect(json).to have_key('user_id')
-      end
+      it { expect(response.status).to eq 200 }
+      it { expect(json).to have_key('user_id') }
     end
 
-    context 'with invalid information' do
+    context 'without authorization' do
       before :each do
-        @user = attributes_for(:user, email: '', username: '')
-
-        post '/users',
-             params: @user.to_json,
-             headers: { 'Content-Type' => 'application/json' }
+        post '/users'
       end
 
-      it 'returns the correct status code' do
-        expect(response.status).to eq 400
+      it { expect(response.status).to eq 400 }
+      it { expect(json).to have_key('email') }
+      it { expect(json).to have_key('username') }
+    end
+  end
+
+  describe 'PUT /users/:id' do
+    context 'with authorization' do
+      before :each do
+        @user = FactoryGirl.create(:user, id: 1, password: '12345678')
+        @user_request = {
+          username: 'Timmy The Tooth',
+          password: '12345678'
+        }
+
+        patch '/users/1',
+              params: @user_request.to_json,
+              headers: {
+                'Content-Type' => 'application/json',
+                'Authorization' => user.access_token
+              }
       end
 
-      it 'returns errors for invalid fields' do
-        expect(json).to have_key('email')
-        expect(json).to have_key('username')
+      it { expect(response.status).to eq 200 }
+      it { expect(json['username']).to eq 'Timmy The Tooth' }
+    end
+
+    context 'without authorization' do
+      before :each do
+        @user = FactoryGirl.create(:user, id: 1, password: '12345678')
+
+        patch '/users/1'
       end
+
+      it { expect(response.status).to eq 200 }
+      it { expect(json['status']).to eq 401 }
+      it { expect(json).to have_key('error') }
+      it { expect(json['error']).to eq 'unauthorized' }
     end
   end
 end

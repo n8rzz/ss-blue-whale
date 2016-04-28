@@ -1,19 +1,24 @@
-class RegistrationsController < Devise::RegistrationsController
+class RegistrationsController < ApplicationController
   skip_before_action :authenticate_user_from_token!, only: [:create]
-  before_action :not_allowed, only: [:new, :edit, :cancel]
+  # before_action :not_allowed, only: [:new, :edit, :cancel]
 
   respond_to :json
 
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  # POST /resource
+  def index
+    @users = User.all
+    render json: @users, each_serializer: UserPreviewSerializer
+  end
+
+  # POST /users
   def create
-    build_resource(sign_up_params)
-    if resource.save
-      render json: resource, status: 200
+    @user = User.new(user_params)
+    if @user.save
+      render json: @user, status: 200
     else
-      render json: resource.errors, status: 400
+      render json: @user.errors, status: 400
     end
   end
 
@@ -22,10 +27,16 @@ class RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # PUT /resource
-  # def update
-  #   super
-  # end
+  # PUT /users/:id
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      render json: @user, status: 200
+    else
+      render json: @user.errors, status: 400
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -43,8 +54,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def sign_up_params
-    params.permit(:name, :email, :username, :password, :password_confirmation)
+  def user_params
+    params.permit(:id, :name, :email, :username, :password, :password_confirmation)
   end
 
   # If you have extra params to permit, append them to the sanitizer.
