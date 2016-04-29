@@ -5,6 +5,8 @@ describe Client, :type => :model do
     expect(build(:client)).to be_instance_of(Client)
   end
 
+  let(:client) { create(:client) }
+
   describe 'data and associations' do
     it { should have_db_column(:name).of_type(:string) }
     it { should have_db_column(:address_1).of_type(:string) }
@@ -25,29 +27,21 @@ describe Client, :type => :model do
   end
 
   describe 'validations' do
-    let(:client) { create(:client) }
-
     it { should validate_presence_of :name }
     it { should validate_length_of(:name).is_at_least(2) }
     it { should validate_uniqueness_of :name }
   end
 
   describe 'callbacks' do
-    let(:client) { create(:client) }
-
     it { expect(client).to callback(:set_default_join_date).before(:create) }
     it { expect(client).to callback(:set_default_status).before(:create) }
   end
 
   describe '#set_default_join_date' do
-    let(:client) { create(:client) }
-
     it { expect(client.joinDate).to_not eq nil }
   end
 
   describe '#set_default_status' do
-    let(:client) { create(:client) }
-
     it { expect(client.status).to eq 'Active' }
   end
 end
