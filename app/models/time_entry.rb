@@ -1,6 +1,7 @@
 class TimeEntry < ApplicationRecord
   belongs_to :user
   belongs_to :task_item
+  belongs_to :project
 
   before_save :set_duration
 

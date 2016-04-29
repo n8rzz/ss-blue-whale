@@ -27,14 +27,9 @@ describe 'TimeEntries', :type => :request do
             headers: { 'Content-Type' => 'application/json' }
       end
 
-      it 'request succeeds' do
-        expect(response.status).to eq 200
-      end
-
-      it 'response contains error metadata' do
-        expect(json['error']).to eq 'unauthorized'
-        expect(json['status']).to eq 401
-      end
+      it { expect(response.status).to eq 200 }
+      it { expect(json['error']).to eq 'unauthorized' }
+      it { expect(json['status']).to eq 401 }
     end
   end
 
@@ -62,21 +57,20 @@ describe 'TimeEntries', :type => :request do
             headers: { 'Content-Type' => 'application/json' }
       end
 
-      it 'request succeeds' do
-        expect(response.status).to eq 200
-      end
-
-      it 'response contains error metadata' do
-        expect(json['error']).to eq 'unauthorized'
-        expect(json['status']).to eq 401
-      end
+      it { expect(response.status).to eq 200 }
+      it { expect(json['error']).to eq 'unauthorized' }
+      it { expect(json['status']).to eq 401 }
     end
   end
 
   describe 'POST /timeEntries' do
     before :each do
       @task_item = create(:task_item)
-      @time_entry_request = attributes_for(:time_entry, task_item_id: @task_item.id, user_id: user.id)
+      @project = create(:project)
+      @time_entry_request = attributes_for(:time_entry,
+                                           task_item_id: @task_item.id,
+                                           project_id: @project.id,
+                                           user_id: user.id)
     end
 
     context 'with authorization' do
@@ -100,14 +94,9 @@ describe 'TimeEntries', :type => :request do
              headers: { 'Content-Type' => 'application/json' }
       end
 
-      it 'request succeeds' do
-        expect(response.status).to eq 200
-      end
-
-      it 'response contains error metadata' do
-        expect(json['error']).to eq 'unauthorized'
-        expect(json['status']).to eq 401
-      end
+      it { expect(response.status).to eq 200 }
+      it { expect(json['error']).to eq 'unauthorized' }
+      it { expect(json['status']).to eq 401 }
     end
   end
 
@@ -141,14 +130,9 @@ describe 'TimeEntries', :type => :request do
             headers: { 'Content-Type' => 'application/json' }
       end
 
-      it 'request succeeds' do
-        expect(response.status).to eq 200
-      end
-
-      it 'response contains error metadata' do
-        expect(json['error']).to eq 'unauthorized'
-        expect(json['status']).to eq 401
-      end
+      it { expect(response.status).to eq 200 }
+      it { expect(json['error']).to eq 'unauthorized' }
+      it { expect(json['status']).to eq 401 }
     end
   end
 
@@ -175,14 +159,9 @@ describe 'TimeEntries', :type => :request do
                headers: { 'Content-Type' => 'application/json' }
       end
 
-      it 'request succeeds' do
-        expect(response.status).to eq 200
-      end
-
-      it 'response contains error metadata' do
-        expect(json['error']).to eq 'unauthorized'
-        expect(json['status']).to eq 401
-      end
+      it { expect(response.status).to eq 200 }
+      it { expect(json['error']).to eq 'unauthorized' }
+      it { expect(json['status']).to eq 401 }
     end
   end
 end

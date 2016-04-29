@@ -8,7 +8,7 @@ class TimeEntriesController < ApplicationController
     render json: @time_entries
   end
 
-  # GET /time_entries/1
+  # GET /time_entries/:id
   def show
     render json: @time_entry
   end
@@ -47,6 +47,6 @@ class TimeEntriesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def time_entry_params
-    params.permit(:startTime, :endTime, :duration, :task_item_id)
+    params.permit(:startTime, :endTime, :duration, :task_item_id, :project_id)
   end
 end

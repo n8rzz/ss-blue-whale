@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427040251) do
+ActiveRecord::Schema.define(version: 20160429001524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,8 +82,10 @@ ActiveRecord::Schema.define(version: 20160427040251) do
     t.datetime "updated_at",   null: false
     t.integer  "user_id"
     t.integer  "task_item_id"
+    t.integer  "project_id"
   end
 
+  add_index "time_entries", ["project_id"], name: "index_time_entries_on_project_id", using: :btree
   add_index "time_entries", ["task_item_id"], name: "index_time_entries_on_task_item_id", using: :btree
   add_index "time_entries", ["user_id"], name: "index_time_entries_on_user_id", using: :btree
 
@@ -110,6 +112,7 @@ ActiveRecord::Schema.define(version: 20160427040251) do
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "project_types"
   add_foreign_key "task_items", "project_types"
+  add_foreign_key "time_entries", "projects"
   add_foreign_key "time_entries", "task_items"
   add_foreign_key "time_entries", "users"
 end

@@ -16,5 +16,6 @@ describe TimeEntrySerializer, :type => :serializer do
     it { expect(subject).to have_key('endTime') }
     it { expect(subject).to have_key('duration') }
     it { expect(subject).to have_key('task_item') }
+    it { expect(subject).to have_key('project') }
   end
 end

@@ -1,5 +1,6 @@
 class TimeEntrySerializer < ActiveModel::Serializer
-  attributes :id, :startTime, :endTime, :duration, :task_item_id
+  attributes :id, :startTime, :endTime, :duration
 
-  has_one :task_item
+  belongs_to :task_item
+  belongs_to :project
 end
