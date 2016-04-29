@@ -16,6 +16,6 @@ class TimeEntry < ApplicationRecord
   def set_duration
     return if endTime.nil?
 
-    update_column(:duration, TimeDifference.between(startTime, endTime).in_hours)
+    update_column(:duration, TimeDifference.between(startTime, endTime).in_minutes)
   end
 end

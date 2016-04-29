@@ -18,5 +18,6 @@ describe ProjectSerializer, :type => :serializer do
     it { expect(subject).to have_key('dueDate') }
     it { expect(subject).to have_key('client') }
     it { expect(subject).to have_key('project_type') }
+    it { expect(subject).to have_key('time_entries') }
   end
 end

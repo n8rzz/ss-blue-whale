@@ -38,10 +38,11 @@ describe TimeEntry, :type => :model do
     end
 
     it 'sets duration after_save' do
+      duration = TimeDifference.between(2.hours.ago, 1.hour.ago).in_minutes
       @time_entry = build(:time_entry, startTime: 2.hours.ago, endTime: 1.hour.ago, duration: nil)
       @time_entry.save!
 
-      expect(@time_entry.duration).to eq 1
+      expect(@time_entry.duration).to eq duration
     end
 
     describe 'when record is updated' do
@@ -54,13 +55,9 @@ describe TimeEntry, :type => :model do
         @time_entry.endTime = 1.hour.ago
         @time_entry.save!
 
-        expect(@time_entry.duration).to_not eq 4
-        expect(@time_entry.duration).to eq 7
+        expect(@time_entry.duration).to_not eq TimeDifference.between(8.hours.ago, 4.hours.ago).in_minutes
+        expect(@time_entry.duration).to eq TimeDifference.between(8.hours.ago, 1.hour.ago).in_minutes
       end
     end
   end
-
-  # describe 'start_time_is_greater_than_end_time' do
-  #
-  # end
 end
