@@ -1,6 +1,10 @@
 FactoryGirl.define do
+  sequence :name do
+    Faker::App.name
+  end
+
   factory :client do
-    sequence(:name) { |n| "#{Faker::App.name}-#{n}" }
+    name
     address_1 Faker::Address.street_address
     address_2 Faker::Address.secondary_address
     city Faker::Address.city
@@ -10,5 +14,8 @@ FactoryGirl.define do
     phone Faker::PhoneNumber.phone_number
     email Faker::Internet.email
     website Faker::Internet.domain_name
+    entity Faker::Lorem.word
+    joinDate 3.years.ago
+    status 'Active'
   end
 end
