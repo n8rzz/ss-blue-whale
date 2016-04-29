@@ -36,5 +36,18 @@ describe Client, :type => :model do
     let(:client) { create(:client) }
 
     it { expect(client).to callback(:set_default_join_date).before(:create) }
+    it { expect(client).to callback(:set_default_status).before(:create) }
+  end
+
+  describe '#set_default_join_date' do
+    let(:client) { create(:client) }
+
+    it { expect(client.joinDate).to_not eq nil }
+  end
+
+  describe '#set_default_status' do
+    let(:client) { create(:client) }
+
+    it { expect(client.status).to eq 'Active' }
   end
 end
