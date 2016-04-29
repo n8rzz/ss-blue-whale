@@ -26,35 +26,41 @@ describe TimeEntry, :type => :model do
   describe 'callbacks' do
     let(:time_entry) { create(:time_entry) }
 
-    it { expect(time_entry).to callback(:set_duration).before(:save) }
+    it { expect(time_entry).to callback(:set_duration).after(:save) }
   end
 
   describe '#set_duration' do
-    it 'returns early if endTime and duration are nil' do
+    it 'returns early if endTime is nil' do
       @time_entry = build(:time_entry, endTime: nil, duration: nil)
       @time_entry.set_duration
 
       expect(@time_entry.duration).to eq nil
     end
 
-    it 'sets duration' do
+    it 'sets duration after_save' do
       @time_entry = build(:time_entry, startTime: 2.hours.ago, endTime: 1.hour.ago, duration: nil)
-      @time_entry.set_duration
+      @time_entry.save!
 
       expect(@time_entry.duration).to eq 1
     end
 
-    # it 'updates duration if duration is modified' do
-    #   duration = TimeDifference.between(2.hours.ago, 1.hour.ago).in_hours
-    #   @time_entry = create(:time_entry,
-    #                      startTime: 2.hours.ago,
-    #                      endTime: 1.hour.ago,
-    #                      duration: duration)
-    #
-    #   @time_entry.set_duration
-    #   @time_entry.update_attributes(endTime: 30.minutes.ago)
-    #
-    #   expect(@time_entry.duration).not_to eq duration
-    # end
+    describe 'when record is updated' do
+      before :each do
+        @time_entry = build(:time_entry, startTime: 8.hours.ago, endTime: 4.hour.ago, duration: nil)
+        @time_entry.save!
+      end
+
+      it 'recaluates duration' do
+        @time_entry.endTime = 1.hour.ago
+        @time_entry.save!
+
+        expect(@time_entry.duration).to_not eq 4
+        expect(@time_entry.duration).to eq 7
+      end
+    end
   end
+
+  # describe 'start_time_is_greater_than_end_time' do
+  #
+  # end
 end
