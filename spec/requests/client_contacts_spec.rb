@@ -77,7 +77,8 @@ describe 'ClientContacts', :type => :request do
 
   describe 'POST /clientContacts' do
     before :each do
-      @client_request = attributes_for(:client_contact)
+      @client = create(:client)
+      @client_request = attributes_for(:client_contact, client_id: @client.id)
     end
 
     context 'with authorization' do

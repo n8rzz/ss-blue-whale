@@ -23,7 +23,7 @@ describe Client, :type => :model do
     it { should have_db_column(:status).of_type(:string) }
 
     it { should have_many(:projects).dependent(:destroy) }
-    # it { should have_many(:client_contacts).dependent.destroy }
+    it { should have_many(:client_contacts).dependent(:destroy) }
   end
 
   describe 'validations' do

@@ -11,8 +11,9 @@ describe ClientContact, :type => :model do
     it { should have_db_column(:businessPhone).of_type(:string) }
     it { should have_db_column(:mobilePhone).of_type(:string) }
     it { should have_db_column(:email).of_type(:string) }
+    it { should have_db_index(:client_id) }
 
-    # it { should have_many(:client_contact_contacts).dependent.destroy }
+    it { should belong_to(:client) }
   end
 
   describe 'validations' do
