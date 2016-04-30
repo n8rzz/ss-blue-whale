@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :projects
   resources :clients
+  resources :client_contacts, :path => 'clientContacts'
   resources :time_entries, :path => 'timeEntries'
   resources :task_items, :path => 'taskItems' do
     member do

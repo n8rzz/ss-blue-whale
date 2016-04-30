@@ -11,7 +11,10 @@ Client.create(
   fax: Faker::PhoneNumber.phone_number,
   phone: Faker::PhoneNumber.phone_number,
   email: Faker::Internet.email,
-  website: Faker::Internet.domain_name
+  website: Faker::Internet.domain_name,
+  entity: 'Individual',
+  joinDate: 3.years.ago,
+  status: 'Active'
 )
 
 ProjectType.create(

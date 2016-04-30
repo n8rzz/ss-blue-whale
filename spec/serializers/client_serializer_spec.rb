@@ -22,5 +22,9 @@ describe ClientSerializer, :type => :serializer do
     it { expect(subject['phone']).to eql(resource.phone) }
     it { expect(subject['email']).to eql(resource.email) }
     it { expect(subject['website']).to eql(resource.website) }
+    it { expect(subject['entity']).to eq(resource.entity) }
+    it { expect(subject['status']).to eq(resource.status) }
+    it { expect(subject).to have_key('joinDate') }
+    it { expect(subject).to have_key('client_contacts') }
   end
 end
