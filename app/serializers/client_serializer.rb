@@ -3,4 +3,6 @@ class ClientSerializer < ActiveModel::Serializer
              :city, :state, :zip, :fax, :phone,
              :email, :website, :entity, :joinDate,
              :status)
+
+  has_many :client_contacts
 end
