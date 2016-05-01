@@ -9,6 +9,12 @@ describe Note, :type => :model do
 
   describe 'data and associations' do
     it { should have_db_column(:content).of_type(:text) }
+    it { should have_db_column(:notable_id).of_type(:integer) }
+    it { should have_db_column(:notable_type).of_type(:string) }
+    # it { should have_db_index(:notable_id) }
+    # it { should have_db_index(:notable_type) }
+
+    it { should belong_to(:notable) }
   end
 
   describe 'validations' do

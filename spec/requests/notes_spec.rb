@@ -5,7 +5,7 @@ describe 'Notes', :type => :request do
 
   describe 'GET /notes' do
     before :each do
-      create_list(:note, 3)
+      create_list(:note, 1)
     end
 
     context 'with authorization' do
@@ -63,7 +63,8 @@ describe 'Notes', :type => :request do
 
   describe 'POST /notes' do
     before :each do
-      @note_request = attributes_for(:note)
+      @client = create(:client)
+      @note_request = attributes_for(:note, notable_id: @client.id, notable_type: 'Client')
     end
 
     context 'with authorization' do
