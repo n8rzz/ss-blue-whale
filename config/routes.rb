@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notes
   devise_for :users, skip: :all
   resources :users, only: [:index, :create, :update], controller: :registrations
   resource :login, only: [:create], controller: :sessions
