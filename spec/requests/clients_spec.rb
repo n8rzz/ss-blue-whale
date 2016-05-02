@@ -203,6 +203,12 @@ describe 'Clients', :type => :request do
       }
     end
 
+    # FIXME: deprecation warning
+    #
+    # This block throws a deprecation warning:
+    # DEPRECATION WARNING: Passing an argument to force an association to reload is now deprecated and will be removed
+    # in Rails 5.1. Please call `reload` on the result collection proxy instead. (called from update at
+    # BlueWhale-api/app/controllers/notes_controller.rb:14)
     context 'with authorization' do
       it 'adds note to the specified client' do
         put '/clients/1/notes/1',

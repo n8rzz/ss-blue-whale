@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe ProjectSerializer, :type => :serializer do
-  context 'a single Project resource' do
+describe Projects::ProjectPreviewSerializer, :type => :serializer do
+  context 'Project list' do
     let(:resource) { build(:project) }
 
-    let(:serializer) { ProjectSerializer.new(resource) }
+    let(:serializer) { Projects::ProjectPreviewSerializer.new(resource) }
     let(:serialization) { ActiveModelSerializers::Adapter.create(serializer) }
 
     subject do
@@ -18,7 +18,7 @@ describe ProjectSerializer, :type => :serializer do
     it { expect(subject).to have_key('dueDate') }
     it { expect(subject).to have_key('client') }
     it { expect(subject).to have_key('project_type') }
-    it { expect(subject).to have_key('time_entries') }
-    it { expect(subject).to have_key('notes') }
+    it { expect(subject).to_not have_key('time_entries') }
+    it { expect(subject).to_not have_key('notes') }
   end
 end

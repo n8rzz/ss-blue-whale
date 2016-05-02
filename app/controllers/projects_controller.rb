@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
 
-    render json: @projects
+    render json: @projects, each_serializer: Projects::ProjectPreviewSerializer
   end
 
   # GET /projects/1

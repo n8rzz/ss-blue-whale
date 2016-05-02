@@ -20,6 +20,7 @@ describe Project, :type => :model do
   end
 
   describe 'validations' do
+    it { should validate_presence_of(:startDate) }
   end
 
   describe 'callbacks' do
