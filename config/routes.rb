@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :create, :update], controller: :registrations
   resource :login, only: [:create], controller: :sessions
 
-  resources :projects
+  resources :projects do
+    resources :notes, module: :projects, only: [:create, :update, :destroy]
+  end
+
   resources :clients do
     resources :notes, module: :clients, only: [:create, :update, :destroy]
   end

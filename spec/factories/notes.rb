@@ -5,5 +5,9 @@ FactoryGirl.define do
     trait :notable_client do
       association :notable, factory: :client
     end
+
+    trait :notable_project do
+      association :notable, factory: :project
+    end
   end
 end
