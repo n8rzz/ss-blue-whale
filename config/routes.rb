@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :projects
   resources :clients do
-    resources :notes, module: :clients, only: [:create, :destroy]
+    resources :notes, module: :clients, only: [:create, :update, :destroy]
   end
 
   resources :client_contacts, :path => 'clientContacts'

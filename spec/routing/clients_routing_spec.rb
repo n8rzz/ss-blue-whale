@@ -26,6 +26,10 @@ describe ClientsController, :type => :routing do
       expect(:post => '/clients/1/notes').to route_to('clients/notes#create', :client_id => '1')
     end
 
+    it 'routes to clients/notes#update' do
+      expect(:put => '/clients/1/notes/1').to route_to('clients/notes#update', :client_id => '1', :id => '1')
+    end
+
     it 'routes to clients/notes#delete' do
       expect(:delete => '/clients/1/notes/1').to route_to('clients/notes#destroy', :client_id => '1', :id => '1')
     end

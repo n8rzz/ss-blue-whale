@@ -10,6 +10,16 @@ class NotesController < ApplicationController
     end
   end
 
+  def update
+    @note = @notable.notes(params[:id])
+
+    if @note.update(note_params)
+      render json: @notable
+    else
+      render json: @notable.errors, status: :unprocessable_entity
+    end
+  end
+
   # DELETE @notable/:id/notes/:id
   def destroy
     @note = Note.find(params[:id])

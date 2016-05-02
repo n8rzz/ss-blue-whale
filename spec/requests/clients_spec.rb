@@ -194,26 +194,68 @@ describe 'Clients', :type => :request do
     end
   end
 
-  # describe 'DELETE /clients/:id/notes/:id' do
-  #   before :each do
-  #     @note = create(:note, id: 1)
-  #     create(:client, id: 1, notes: @note)
-  #
-  #     delete '/clients/1/notes/1',
-  #            headers: {
-  #              'Content-Type' => 'application/json',
-  #              'Authorization' => user.access_token
-  #            }
-  #   end
-  #
-  #   context 'with authorization' do
-  #     it { expect(response.status).to eq 200 }
-  #   end
-  #
-  #   context 'without authorization' do
-  #     it { expect(response.status).to eq 200 }
-  #     it { expect(json['error']).to eq 'unauthorized' }
-  #     it { expect(json['status']).to eq 401 }
-  #   end
-  # end
+  describe 'PUT /clients/:id/notes/:id' do
+    before :each do
+      create(:client, id: 1)
+      create(:note, :notable_client, id: 1)
+      @note_request = {
+        content: 'Something different'
+      }
+    end
+
+    context 'with authorization' do
+      it 'adds note to the specified client' do
+        put '/clients/1/notes/1',
+            params: @note_request.to_json,
+            headers: {
+              'Content-Type' => 'application/json',
+              'Authorization' => user.access_token
+            }
+
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without authorization' do
+      before :each do
+        put '/clients/1/notes/1',
+            headers: { 'Content-Type' => 'application/json' }
+      end
+
+      it { expect(response.status).to eq 200 }
+      it { expect(json['error']).to eq 'unauthorized' }
+      it { expect(json['status']).to eq 401 }
+    end
+  end
+
+  describe 'DELETE /clients/:id/notes/:id' do
+    context 'with authorization' do
+      before :each do
+        @client = create(:client, id: 1)
+        @note = create(:note, :notable_client, id: 1)
+
+        delete '/clients/1/notes/1',
+               headers: {
+                 'Content-Type' => 'application/json',
+                 'Authorization' => user.access_token
+               }
+      end
+
+      it { expect(response.status).to eq 204 }
+    end
+
+    context 'without authorization' do
+      before :each do
+        @client = create(:client, id: 1)
+        @client.notes.create(content: Faker::Lorem.sentence(1))
+
+        delete '/clients/1/notes/1',
+               headers: { 'Content-Type' => 'application/json' }
+      end
+
+      it { expect(response.status).to eq 200 }
+      it { expect(json['error']).to eq 'unauthorized' }
+      it { expect(json['status']).to eq 401 }
+    end
+  end
 end
