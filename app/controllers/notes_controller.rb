@@ -10,8 +10,9 @@ class NotesController < ApplicationController
     end
   end
 
+  # PUT @notable/notes/:id
   def update
-    @note = @notable.notes(params[:id])
+    @note = @notable.notes.find_by_id(params[:id])
 
     if @note.update(note_params)
       render json: @notable
