@@ -6,8 +6,4 @@ FactoryGirl.define do
       association :notable, factory: :client
     end
   end
-
-  factory :note_content, parent: :note do
-    content Faker::Lorem.paragraph
-  end
 end

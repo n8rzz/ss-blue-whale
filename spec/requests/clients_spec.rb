@@ -166,7 +166,7 @@ describe 'Clients', :type => :request do
   describe 'POST /clients/:id/notes' do
     before :each do
       create :client, id: 1
-      @note = attributes_for :note_content
+      @note = attributes_for(:note, :notable_client, id: 1)
     end
 
     context 'with authorization' do
