@@ -18,5 +18,6 @@ describe TaskItemSerializer, :type => :serializer do
     it { expect(subject).to have_key('startDate') }
     it { expect(subject).to have_key('endDate') }
     it { expect(subject).to have_key('project_types') }
+    it { expect(subject).to have_key('notes') }
   end
 end

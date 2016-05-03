@@ -9,5 +9,9 @@ FactoryGirl.define do
     trait :notable_project do
       association :notable, factory: :project
     end
+
+    trait :notable_task_item do
+      association :notable, factory: :task_item
+    end
   end
 end

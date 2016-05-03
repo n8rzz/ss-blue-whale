@@ -25,5 +25,17 @@ RSpec.describe ClientContactsController, type: :routing do
     it 'routes to #destroy' do
       expect(:delete => '/clientContacts/1').to route_to('client_contacts#destroy', :id => '1')
     end
+
+    it 'routes to clients/notes#create' do
+      expect(:post => '/clients/1/notes').to route_to('clients/notes#create', :client_id => '1')
+    end
+
+    it 'routes to clients/notes#update' do
+      expect(:put => '/clients/1/notes/1').to route_to('clients/notes#update', :client_id => '1', :id => '1')
+    end
+
+    it 'routes to clients/notes#delete' do
+      expect(:delete => '/clients/1/notes/1').to route_to('clients/notes#destroy', :client_id => '1', :id => '1')
+    end
   end
 end
