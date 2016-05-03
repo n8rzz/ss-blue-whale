@@ -16,6 +16,7 @@ describe TaskItem, type: :model do
 
     it { should have_many(:project_types).through(:project_types_task_items) }
     it { should have_many(:time_entries) }
+    it { should have_many(:notes).dependent(:destroy) }
     it { should accept_nested_attributes_for(:project_types) }
   end
 

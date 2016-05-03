@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   def index
     @clients = Client.all
 
-    render json: @clients
+    render json: @clients, each_serializer: ClientPreviewSerializer
   end
 
   # GET /clients/1

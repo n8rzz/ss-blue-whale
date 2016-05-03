@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe ClientSerializer, :type => :serializer do
+describe ClientPreviewSerializer, :type => :serializer do
   context 'a single Client resource' do
     let(:resource) { build(:client) }
 
-    let(:serializer) { ClientSerializer.new(resource) }
+    let(:serializer) { ClientPreviewSerializer.new(resource) }
     let(:serialization) { ActiveModelSerializers::Adapter.create(serializer) }
 
     subject do
@@ -25,7 +25,7 @@ describe ClientSerializer, :type => :serializer do
     it { expect(subject['entity']).to eq(resource.entity) }
     it { expect(subject['status']).to eq(resource.status) }
     it { expect(subject).to have_key('joinDate') }
-    it { expect(subject).to have_key('client_contacts') }
-    it { expect(subject).to have_key('notes') }
+    it { expect(subject).to_not have_key('client_contacts') }
+    it { expect(subject).to_not have_key('notes') }
   end
 end

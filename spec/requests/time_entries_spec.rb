@@ -5,7 +5,7 @@ describe 'TimeEntries', :type => :request do
 
   describe 'GET /timeEntries' do
     before :each do
-      create_list(:time_entry, 3)
+      create_list(:time_entry, 1)
     end
 
     context 'with authorization' do
@@ -17,7 +17,7 @@ describe 'TimeEntries', :type => :request do
             }
 
         expect(response.status).to eq 200
-        expect(json.size).to eq 3
+        expect(json.size).to eq 1
       end
     end
 

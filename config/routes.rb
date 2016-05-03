@@ -3,15 +3,24 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :create, :update], controller: :registrations
   resource :login, only: [:create], controller: :sessions
 
-  resources :projects
-  resources :clients
-  resources :client_contacts, :path => 'clientContacts'
-  resources :time_entries, :path => 'timeEntries'
+  resources :projects do
+    resources :notes, module: :projects, only: [:create, :update, :destroy]
+  end
+
+  resources :clients do
+    resources :notes, module: :clients, only: [:create, :update, :destroy]
+  end
+
   resources :task_items, :path => 'taskItems' do
     member do
       post 'projectTypes', to: 'task_items#add_project_types'
     end
+
+    resources :notes, module: :task_items, only: [:create, :update, :destroy]
   end
+
+  resources :client_contacts, :path => 'clientContacts'
+  resources :time_entries, :path => 'timeEntries'
 
   resources :project_types, :path => 'projectTypes' do
     member do
