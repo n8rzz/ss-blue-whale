@@ -1,7 +1,12 @@
 class Client < ApplicationRecord
   has_many :projects, dependent: :destroy
-  has_many :client_contacts, dependent: :destroy
-  has_many :notes, as: :notable, dependent: :destroy
+  has_many :client_contacts,
+           -> { order(name: :asc) },
+           dependent: :destroy
+  has_many :notes,
+           -> { order(created_at: :desc) },
+           as: :notable,
+           dependent: :destroy
 
   before_create :set_default_join_date, :set_default_status
 

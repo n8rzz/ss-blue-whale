@@ -3,7 +3,7 @@ class ClientContactsController < ApplicationController
 
   # GET /client_contacts
   def index
-    @client_contacts = ClientContact.all
+    @client_contacts = ClientContact.all.order(name: :asc)
 
     render json: @client_contacts
   end

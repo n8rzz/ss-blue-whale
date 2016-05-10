@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
 
   # GET /clients
   def index
-    @clients = Client.all
+    @clients = Client.all.order(name: :asc)
 
     render json: @clients, each_serializer: ClientPreviewSerializer
   end
