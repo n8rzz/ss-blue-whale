@@ -21,6 +21,10 @@ describe ClientSerializer, :type => :serializer do
     it { expect(subject['fax']).to eql(resource.fax) }
     it { expect(subject['phone']).to eql(resource.phone) }
     it { expect(subject['email']).to eql(resource.email) }
+    it { expect(subject['emailPrimary']).to eql(resource.emailPrimary) }
+    it { expect(subject['emailSecondary']).to eql(resource.emailSecondary) }
+    it { expect(subject['spouseName']).to eql(resource.spouseName) }
+    it { expect(subject['dbaName']).to eql(resource.dbaName) }
     it { expect(subject['website']).to eql(resource.website) }
     it { expect(subject['entity']).to eq(resource.entity) }
     it { expect(subject['status']).to eq(resource.status) }

@@ -11,6 +11,8 @@ class Client < ApplicationRecord
   before_create :set_default_join_date, :set_default_status
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 2 }
+  # validates :entity, inclusion: { in: %w(Active Inactive),
+  #                                 message: "%{value} is not a valid status" }
   validates :status, inclusion: { in: %w(Active Inactive),
                                   message: "%{value} is not a valid status" }
 
