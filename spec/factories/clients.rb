@@ -1,7 +1,5 @@
 FactoryGirl.define do
-  sequence :name do
-    Faker::App.name
-  end
+  sequence(:name) { |n| "#{Faker::App.name}-#{n}" }
 
   factory :client do
     name

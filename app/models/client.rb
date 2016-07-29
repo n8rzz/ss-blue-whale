@@ -12,7 +12,7 @@ class Client < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 2 }
   validates :status, inclusion: { in: %w(Active Inactive),
-    message: "%{value} is not a valid status" }
+                                  message: "%{value} is not a valid status" }
 
   private
 

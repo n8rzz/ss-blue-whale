@@ -13,10 +13,13 @@ describe ProjectSerializer, :type => :serializer do
 
     it { expect(subject['id']).to eql(resource.id) }
     it { expect(subject['startDate']).to_not be_nil }
+    it { expect(subject['status']).to_not be_nil }
+    it { expect(subject['isRecurring']).to eql(resource.isRecurring) }
 
     it { expect(subject).to have_key('completedDate') }
     it { expect(subject).to have_key('dueDate') }
     it { expect(subject).to have_key('client') }
+    it { expect(subject).to have_key('leadTimeDays') }
     it { expect(subject).to have_key('project_type') }
     it { expect(subject).to have_key('time_entries') }
     it { expect(subject).to have_key('notes') }
