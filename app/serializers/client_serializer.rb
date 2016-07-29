@@ -5,5 +5,6 @@ class ClientSerializer < ActiveModel::Serializer
              :status)
 
   has_many :client_contacts
+  has_many :projects
   has_many :notes
 end

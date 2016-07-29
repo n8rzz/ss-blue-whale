@@ -10,7 +10,12 @@ class ClientsController < ApplicationController
 
   # GET /clients/1
   def show
-    render json: @client
+    # using include here in order to include nested relationships via :project
+    render json: @client, include: ['client_contacts',
+                                    'projects',
+                                    'projects.project_type',
+                                    'projects.project_type.task_items',
+                                    'notes']
   end
 
   # POST /clients

@@ -249,7 +249,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (~> 0.10.0.rc5)
+  active_model_serializers
   better_errors (= 2.1.1)
   byebug (= 8.2.2)
   coveralls
