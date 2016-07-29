@@ -31,6 +31,8 @@ describe Client, :type => :model do
     it { should validate_presence_of :name }
     it { should validate_length_of(:name).is_at_least(2) }
     it { should validate_uniqueness_of :name }
+
+    it { expect(client).to validate_inclusion_of(:status).in_array(%w(Active Inactive)) }
   end
 
   describe 'callbacks' do
