@@ -13,7 +13,7 @@ FactoryGirl.define do
     # TODO: deprecate email
     email Faker::Internet.email
     website Faker::Internet.domain_name
-    entity Faker::Lorem.word
+    entity 'S-Corp'
     emailPrimary Faker::Internet.email
     emailSecondary Faker::Internet.email
     dbaName Faker::Company.name
