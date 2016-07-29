@@ -27,6 +27,6 @@ describe Project, :type => :model do
     it { should validate_inclusion_of(:status).in_array(%w(Scheduled Active Closed Complete)) }
   end
 
-  describe 'callbacks' do
-  end
+  # describe 'callbacks' do
+  # end
 end
