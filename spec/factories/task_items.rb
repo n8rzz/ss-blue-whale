@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence(:name) { |n| "#{Faker::App.name}-#{n}" }
     sequence(:sortOrder, &:to_s)
     description Faker::Lorem.sentence
+    isControllable true
     startDate Faker::Date.between(180.days.ago, 10.days.ago)
     endDate Faker::Date.between(90.days.ago, 2.days.ago)
   end

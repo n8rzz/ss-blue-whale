@@ -15,6 +15,7 @@ describe TaskItemSerializer, :type => :serializer do
     it { expect(subject['name']).to eql(resource.name) }
     it { expect(subject['description']).to eql(resource.description) }
     it { expect(subject['sortOrder']).to eql(resource.sortOrder) }
+    it { expect(subject['isControllable']).to eql(resource.isControllable) }
     it { expect(subject).to have_key('startDate') }
     it { expect(subject).to have_key('endDate') }
     it { expect(subject).to have_key('project_types') }
