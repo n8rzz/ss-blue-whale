@@ -14,6 +14,9 @@ describe ProjectTypeSerializer, :type => :serializer do
     it { expect(subject['id']).to eql(resource.id) }
     it { expect(subject['name']).to eql(resource.name) }
     it { expect(subject['description']).to eql(resource.description) }
+    it { expect(subject['repeatWhenComplete']).to eql(resource.repeatWhenComplete) }
+    it { expect(subject).to have_key('nextRecurringDate') }
+    it { expect(subject).to have_key('recurringSchedule') }
     it { expect(subject).to have_key('dueDate') }
     it { expect(subject).to have_key('task_items') }
   end

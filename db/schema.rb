@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501031525) do
+ActiveRecord::Schema.define(version: 20160730023912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,14 +38,18 @@ ActiveRecord::Schema.define(version: 20160501031525) do
     t.string   "phone"
     t.string   "email"
     t.string   "website"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "city"
     t.string   "state"
     t.string   "zip"
     t.string   "entity"
     t.string   "status"
     t.datetime "joinDate"
+    t.string   "emailPrimary"
+    t.string   "emailSecondary"
+    t.string   "dbaName"
+    t.string   "spouseName"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -62,8 +66,11 @@ ActiveRecord::Schema.define(version: 20160501031525) do
     t.string   "name"
     t.string   "description"
     t.datetime "dueDate"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.datetime "nextRecurringDate"
+    t.string   "recurringSchedule"
+    t.boolean  "repeatWhenComplete", default: false, null: false
   end
 
   create_table "project_types_task_items", id: false, force: :cascade do |t|
@@ -79,9 +86,12 @@ ActiveRecord::Schema.define(version: 20160501031525) do
     t.datetime "completedDate"
     t.datetime "dueDate"
     t.integer  "client_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "project_type_id"
+    t.integer  "leadTimeDays"
+    t.boolean  "isRecurring",     default: false, null: false
+    t.string   "status"
   end
 
   add_index "projects", ["client_id"], name: "index_projects_on_client_id", using: :btree
@@ -94,8 +104,9 @@ ActiveRecord::Schema.define(version: 20160501031525) do
     t.datetime "startDate"
     t.datetime "endDate"
     t.integer  "project_type_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "isControllable",  default: true, null: false
   end
 
   add_index "task_items", ["project_type_id"], name: "index_task_items_on_project_type_id", using: :btree

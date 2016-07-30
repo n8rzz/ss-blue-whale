@@ -2,6 +2,9 @@ FactoryGirl.define do
   factory :project_type do
     sequence(:name) { |n| "Names#{n}" }
     description Faker::Lorem.sentence
+    nextRecurringDate Faker::Date.between(1.day.from_now, 1.year.from_now)
+    recurringSchedule 'Quarterly'
+    repeatWhenComplete true
     dueDate Faker::Date.between(90.days.ago, 5.days.ago)
   end
 
