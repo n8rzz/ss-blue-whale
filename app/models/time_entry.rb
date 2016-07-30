@@ -1,7 +1,7 @@
 class TimeEntry < ApplicationRecord
   belongs_to :user
-  belongs_to :task_item
-  belongs_to :project
+  belongs_to :task_item, inverse_of: :time_entries
+  belongs_to :project, inverse_of: :time_entries
 
   after_save :set_duration
 
